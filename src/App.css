@@ -1,0 +1,15 @@
+.main-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+};
+
+.water-background{
+  background-color: rgb(30, 144, 144);
+};
+
+.game-heading{
+  padding: 5px 20px;
+  border-radius: 5px;
+};
+
