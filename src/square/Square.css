@@ -11,3 +11,18 @@
     cursor: pointer;
     background-color: aquamarine;
 }
+
+
+.not-allowed{
+    cursor: not-allowed !important
+}
+
+
+.cross-won{
+    background-color: greenyellow;
+}
+
+
+.circle-won{
+    background-color: rgb(18, 195, 169);
+}
