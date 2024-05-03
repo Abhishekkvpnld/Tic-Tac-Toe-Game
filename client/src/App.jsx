@@ -48,8 +48,13 @@ const App = () => {
         }
       }
     });
-    return result; 
+    return result;
   };
+
+  socket?.on("OpponentLeftMatch", (data) => {
+    alert("opponent left the match")
+    setFinishedState("OpponentLeftMatch")
+  });
 
   socket?.on("PlayerMoveFromServer", (data) => {
     const id = data.state.id;
@@ -141,7 +146,6 @@ const App = () => {
   };
 
 
-
   if (!playOnline) {
     return <div className='main-div'>
       <button onClick={playOnlineClick} className='play-online'>Play Online</button>
@@ -153,6 +157,7 @@ const App = () => {
     return (
       <div className='waiting'>
         <p>Waiting for opponent...</p>
+        <div className='loader'></div>
       </div>
     )
   };
@@ -192,17 +197,21 @@ const App = () => {
           }
         </div>
         {
-          finishedState && finishedState !== "draw" &&
+          finishedState && finishedState !== "OpponentLeftMatch" && finishedState !== "draw" &&
           <h2 className='finished-state'>{finishedState === playingAs ? "You" : finishedState} won the game</h2>
         }
 
         {
-          finishedState && finishedState === "draw" &&
+          finishedState && finishedState !== "OpponentLeftMatch" && finishedState === "draw" &&
           <h2 className='finished-state'>Draw Game</h2>
         }
         {
           !finishedState && opponentName &&
           <h2 className='finished-state'>You are playing against {opponentName}</h2>
+        }
+        {
+          !finishedState && finishedState === "OpponentLeftMatch" &&
+          <h2 className='finished-state'>You won the game, Opponent has left</h2>
         }
       </div>
 

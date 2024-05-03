@@ -73,18 +73,20 @@ io.on("connection", (socket) => {
     currentUser.online = false;
     currentUser.playing = false;
 
-for(let i=0; i<allRooms.length;i++){
-const {player1,player2} = allRooms[i];
+    for (let i = 0; i < allRooms.length; i++) {
+      const { player1, player2 } = allRooms[i];
 
-if(player1.id === socket.id){
+      if (player1.socket.id === socket.id) {
+        player2.socket.emit("OpponentLeftMatch");
+        break;
+      };
 
-};
+      if (player2.socket.id === socket.id) {
+        player1.socket.emit("OpponentLeftMatch");
+        break;
+      };
 
-if(player2.id === socket.id){
-
-};
-
-};
+    };
 
   });
 });
