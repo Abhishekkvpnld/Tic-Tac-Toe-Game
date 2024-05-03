@@ -25,6 +25,11 @@
 }
 
 
+.grey-background{
+    background-color: grey;
+}
+
+
 .circle-won{
     background-color: rgb(18, 195, 169);
 }

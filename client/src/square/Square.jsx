@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import './Square.css';
 import { circleSvg, crossSvg } from "../assets/gameIcon";
 
-const Square = ({ id, setGameState, currentPlayer, setCurrentPlayer, finishedState, finishedArrayState }) => {
+const Square = ({ id, playingAs, setGameState, currentPlayer, setCurrentPlayer, finishedState, finishedArrayState, gameState, socket, currentElement }) => {
 
   const [icon, setIcon] = useState(null);
 
   const clickOnSquare = () => {
-    if (!icon) {
 
+    if(playingAs !== currentPlayer){
+      return;
+    };
+
+    if (finishedState) {
+      return;
+    };
+
+    if (!icon) {
       if (currentPlayer === "circle") {
         setIcon(circleSvg);
 
@@ -17,7 +25,15 @@ const Square = ({ id, setGameState, currentPlayer, setCurrentPlayer, finishedSta
       };
 
       const myCurrentPlayer = currentPlayer;
+      socket.emit("PlayerMoveFromClient", {
+        state: {
+          id,
+          sign: currentPlayer
+        }
+      });
+
       setCurrentPlayer(currentPlayer === "circle" ? "cross" : "circle");
+
 
       setGameState(prev => {
         let newState = [...prev];
@@ -31,8 +47,14 @@ const Square = ({ id, setGameState, currentPlayer, setCurrentPlayer, finishedSta
   };
 
   return (
-    <div onClick={clickOnSquare} 
-    className={`square ${finishedState ? "not-allowed" : ''} ${finishedArrayState.includes(id) ? finishedState + "-won" : ''}`}>{icon}</div>
+    <div onClick={clickOnSquare}
+      className={`square ${finishedState ? "not-allowed" : ''} 
+      ${finishedArrayState.includes(id) ? finishedState + "-won" : ''} 
+       ${currentPlayer !== playingAs ? "not-allowed" : ''}
+       ${finishedState && finishedState !== playingAs ? "grey-background" : "" }
+       `}>
+      {currentElement === "circle" ? circleSvg : currentElement === "cross" ? crossSvg : icon}
+    </div>
   )
 }
 
