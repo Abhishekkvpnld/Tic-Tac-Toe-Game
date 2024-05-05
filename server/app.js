@@ -1,9 +1,19 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 
+
+ const corsOptions = {
+  origin: [
+      "http://localhost:5173",
+      "http://localhost:4173",
+      "https://tic-tac-toe-game-two-alpha.vercel.app"],
+  Methods: [ "GET","POST","PUT","DELETE"],
+  credentials: true
+};
+
 const httpServer = createServer();
 const io = new Server(httpServer, {
-  cors: "http://localhost:5173/"
+  cors: corsOptions
 });
 
 

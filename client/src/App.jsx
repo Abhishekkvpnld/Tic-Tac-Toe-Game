@@ -12,7 +12,9 @@ const renderFrom = [
   [7, 8, 9]
 ];
 
-const URL = 'http://localhost:3000/';
+const URL = 'http://localhost:3000';
+// const URL = "https://tic-tac-toe-game-oetv.onrender.com"
+
 
 const App = () => {
 
@@ -36,6 +38,7 @@ const App = () => {
   }, [gameState]);
 
 
+
   const takePlayerName = async () => {
     const result = await Swal.fire({
       title: "Enter your Name",
@@ -51,10 +54,13 @@ const App = () => {
     return result;
   };
 
+
+  
   socket?.on("OpponentLeftMatch", (data) => {
     alert("opponent left the match")
     setFinishedState("OpponentLeftMatch")
   });
+  
 
   socket?.on("PlayerMoveFromServer", (data) => {
     const id = data.state.id;
@@ -68,13 +74,20 @@ const App = () => {
     setCurrentPlayer(data.state.sign === "circle" ? "cross" : "circle");
   });
 
+
+
   socket?.on("connect", () => {
     setPlayOnline(true)
   });
 
+
+
+
   socket?.on("OpponentNotFound", () => {
     setOpponentName(false);
   });
+
+
 
   socket?.on("OpponentFound", (data) => {
     setPlayingAs(data.playingAs);
