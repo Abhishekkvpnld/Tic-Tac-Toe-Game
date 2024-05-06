@@ -13,7 +13,7 @@ const renderFrom = [
 ];
 
 const URL = 'http://localhost:3000';
-// const URL = "https://tic-tac-toe-game-oetv.onrender.com"
+// const URL = "https://tic-tac-toe-game-oetv.onrender.com";
 
 
 const App = () => {
@@ -55,12 +55,12 @@ const App = () => {
   };
 
 
-  
+
   socket?.on("OpponentLeftMatch", (data) => {
     alert("opponent left the match")
     setFinishedState("OpponentLeftMatch")
   });
-  
+
 
   socket?.on("PlayerMoveFromServer", (data) => {
     const id = data.state.id;
@@ -79,7 +79,6 @@ const App = () => {
   socket?.on("connect", () => {
     setPlayOnline(true)
   });
-
 
 
 
