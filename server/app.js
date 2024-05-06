@@ -1,5 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
+import express from "express";
+import cors from "cors";
 
 
 const corsOptions = {
@@ -13,9 +15,19 @@ const corsOptions = {
 };
 
 
-const httpServer = createServer();
+const app = express();
+const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: corsOptions
+});
+
+
+app.use(express.json());
+app.use(cors(corsOptions));
+
+
+app.get("/", (req, res) => {
+  res.send("server running")
 });
 
 

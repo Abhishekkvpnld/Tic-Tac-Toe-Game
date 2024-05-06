@@ -12,8 +12,8 @@ const renderFrom = [
   [7, 8, 9]
 ];
 
-const URL = 'http://localhost:3000';
-// const URL = "https://tic-tac-toe-game-oetv.onrender.com";
+// const URL = 'http://localhost:3000';
+const URL = "https://tic-tac-toe-game-oetv.onrender.com";
 
 
 const App = () => {
