@@ -190,7 +190,7 @@ const App = () => {
 
         <div className='square-wrapper'>
           {
-            gameState.map((arr, rowIndex) =>
+            gameState?.map((arr, rowIndex) =>
               arr.map((i, colIndex) =>
                 <Square
                   socket={socket}
